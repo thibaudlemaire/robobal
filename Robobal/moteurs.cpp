@@ -112,6 +112,11 @@ void moteurs::changerSens(bool avancer)
 // Modifie uniquement la vitesse du moteur
 void moteurs::changerVitesse(int vitesse)
 {
+    // Limitation de la vitesse
+    if(vitesse > Vmax)
+    {
+        vitesse = Vmax;
+    }
     Timer1.pwm(pinPwm, vitesse);
 }
 

@@ -47,13 +47,13 @@ void pid::majConsigne(double newConsigne)
 void pid::majPid(double mesure, double dt)
 {
     double erreur = (consigne - mesure);
+    double variationErreur = int((erreur - erreurPrecedente)*100); // Partie entière
     sommeErreurs += erreur * dt;
     termeP = KP * erreur;
-    termeI = KI * contraindre(sommeErreurs, 1, -1);
-    termeD = KD * (erreur - erreurPrecedente) / dt;
+    termeI = KI * contraindre(sommeErreurs, 10, -10);
+    termeD = KD * variationErreur / dt /100;    // /100 rétabli l'echelle
     correction = termeP + termeI + termeD;
     erreurPrecedente = erreur;
-    
 }
 
 // Fonction majP, modifie le gain proportionnel
@@ -77,7 +77,7 @@ void pid::majD(int newD)
 // Fonction getCorrection, renvoie le gain du correcteur
 double pid::getCorrection()
 {
-    return correction;
+    return contraindre(correction, 1023, -1023); // Rapports cyclique extrèmes
 }
 
 int pid::getP()

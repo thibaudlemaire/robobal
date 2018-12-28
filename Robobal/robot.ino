@@ -54,7 +54,7 @@ communication com;
 SoftwareSerial bt(14, 15);
 moteurs moteurDroit(9, 13, 6);
 moteurs moteurGauche(10, 8, 7);
-pid pid(1,0,0);
+pid pid(150,0,0);
 
 
 bool newDatas;      // Drapeau de demande de mesure
@@ -99,6 +99,9 @@ void setup()
   
     // Début de l'échantillonage
     Timer1.attachInterrupt(cligno);
+    
+    // Réglage pid
+    pid.majConsigne(-0.8);
 
 }
 

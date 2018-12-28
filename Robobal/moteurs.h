@@ -46,7 +46,7 @@
 #define moteurs_h
 
 // Paramètres des moteurs
-#define VmaxDefaut 100
+#define VmaxDefaut 800
 
 class moteurs {
   
